@@ -1,4 +1,10 @@
-#include
+// wav.h
+#include<stdio.h>
+#include<string>
+#include<vector>
+#include<cstring>
+
+using namespace std;
 
 struct wav_header
 {
@@ -21,31 +27,44 @@ struct chunk_t
 {
 	char ID[4];
 	unsigned long size;
-}
+};
 
 
 class WavObject
 {
-	private:
-	string file;
-	/*float type*/ data ;
+	protected:
+	FILE *file;
+
+	wav_header *header;
+	short int *data; // wsk na dane
+	int samples_count;
+
 	public:
-	WavObject( string f) : file(f) {}
+	WavObject(string f, char mode);
 	
+	short int* get_data();
+	wav_header* get_header();
+	int get_samples_count();	
 	
+	~WavObject();		
 };
 
-class WavReader : WavObject
-{
-	public:
-/*float type*/	read_data();	
-};
-
-class WavWriter : WavObject
+class WavReader : public WavObject
 {
 	private:
+	
 	public:
-	write_data(vector</*float type*/> dane);
+	WavReader(string f) : WavObject(f, 'r') {}
+	bool read_data();	
+};
+
+class WavWriter : public WavObject
+{
+	private:
+
+	public:
+	WavWriter(string f) : WavObject(f, 'w') {}
+	bool write_data(short int* data, wav_header* h, int sc);
 };
 
 

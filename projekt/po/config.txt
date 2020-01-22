@@ -1,0 +1,17 @@
+wprowadzenie Witaj przybyszu, oto mapa gry: 
+kontynuacja kontynuowac...(nacisnij dowolny klawisz)
+przegrana Przegrana - Straciles wszystkie punkty zycia
+gratulacje Gratulacje, ukonczyles gre
+kierunek Wybierz kierunek ruchu (uzyj strzalek)
+czy_zostawic Czy chcesz zostawic pierwszy zebrany przedmiot\n w tej lokalizacji? (t/n)
+czy_podniesc Czy chcesz podniesc przedmiot?
+natrafiles Natrafiles na:
+statystyki Twoje statystyki:
+map_len 7
+####GAME####
+php = 50
+pmana = 50
+pmoney = 50
+pspeed = 50
+pstrength = 50
+####STATS####
