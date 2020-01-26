@@ -2,8 +2,10 @@
 #include"wav.h"
 #include<vector>
 #include<iostream>
+#include<math.h>
 using namespace std;
 
+#define sgn(x) (signbit(x) ? -1 : 1)
 
 class klatka
 {

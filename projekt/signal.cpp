@@ -37,8 +37,9 @@ signal& signal::operator+= ( const signal& adder )
 {
 	for( int i = 0; i < samples_count; i++)
 	{
-		data[i] = adder.data[i] + data[i];
+		data[i] =  adder.data[i] + data[i];
 	}
+		cout<<"tu jestem"<<endl;
 	return *this;
 }
 
@@ -46,7 +47,7 @@ signal& signal::operator+ ( const signal& adder)
 {
 	for( int i = 0; i < samples_count; i++)
 	{
-		data[i] = adder.data[i] + data[i];
+		data[i] = ( sgn(adder.data[i] + data[i])  > 32767 ) ? :32767;
 	}
 	return *this;
 }

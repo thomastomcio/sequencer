@@ -1,8 +1,5 @@
 // efekt.h
 #include"signal.h"
-#include<math.h>
-
-#define sgn(x) (signbit(x) ? -1 : 1)
 
 class efekt : public signal
 {
@@ -25,7 +22,7 @@ class efekt : public signal
 
 class delay : public efekt
 {
-	private:
+	protected:
 		double time_delay;
 		int index_delay;
 	public:
@@ -35,10 +32,31 @@ class delay : public efekt
 		
 };
 
-class echo : public efekt
+class echo : public delay
 {
+	private:
+	int krotnosc;
+	public:
+		echo( WavObject& wav_file, int k, double td, double ftp, double a );
+		
 };
 
-class flanger : public efekt
+class flanger : public efekt // trzeba poprawic
 {
+//	private:
+//		double time_delay;
+//		int index_delay; // do przemyslenia
+	public:
+		flanger( WavObject& wav_file, double ftp, double a);
+		
+};
+
+class distortion: public efekt // trzeba poprawic
+{
+	private:
+		double distortion_lvl;
+//		int index_delay; // do przemyslenia
+	public:
+		distortion( WavObject& wav_file, double dis_lvl, double ftp, double a);
+		
 };

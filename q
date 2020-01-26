@@ -1,0 +1,76 @@
+[33mcommit b570cd4d9e11836de7191b0373a71d3e6c7ab57b[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: thomas <thomastomcio@gmail.com>
+Date:   Wed Jan 22 16:06:08 2020 +0100
+
+    Second commit
+
+A	projekt/.efekt.cpp.swp
+A	projekt/.efekt.h.swp
+A	projekt/.main.cpp.swo
+A	projekt/.main.cpp.swp
+A	projekt/.signal.cpp.swp
+A	projekt/.signal.h.swp
+A	projekt/Makefile
+A	projekt/Session.vim
+A	projekt/efekt.cpp
+A	projekt/efekt.h
+A	projekt/efekt.o
+A	projekt/gnomiczek.wav
+A	projekt/laliczek.wav
+A	projekt/main.cpp
+A	projekt/main.o
+A	projekt/make
+A	projekt/pimp.wav
+A	projekt/po/.Location.cpp.swp
+A	projekt/po/.Location.h.swp
+A	projekt/po/Character.cpp
+A	projekt/po/Character.h
+A	projekt/po/Character.o
+A	projekt/po/Game.cpp
+A	projekt/po/Game.h
+A	projekt/po/Game.o
+A	projekt/po/Item.cpp
+A	projekt/po/Item.h
+A	projekt/po/Location.cpp
+A	projekt/po/Location.h
+A	projekt/po/Location.o
+A	projekt/po/Makefile
+A	projekt/po/Map.cpp
+A	projekt/po/Map.h
+A	projekt/po/Map.o
+A	projekt/po/Statistics.cpp
+A	projekt/po/Statistics.h
+A	projekt/po/Statistics.o
+A	projekt/po/config.txt
+A	projekt/po/gra.exe
+A	projekt/po/main.cpp
+A	projekt/po/main.o
+A	projekt/seq.exe
+A	projekt/signal.cpp
+A	projekt/signal.h
+A	projekt/signal.o
+A	projekt/to_do.txt
+A	projekt/wav.cpp
+M	projekt/wav.h
+A	projekt/wav.o
+A	test/g.cpp
+A	test/g.exe
+A	test/main.cpp
+A	test/main.exe
+
+[33mcommit df0b77ea648a5798030482b0710262726cb23d9c[m
+Author: thomas <thomastomcio@gmail.com>
+Date:   Sat Jan 11 11:22:26 2020 +0100
+
+    main folder
+
+A	projekt/wav.h
+A	wav_read
+
+[33mcommit 0082e1948a2c5bfcc646910acb4516f8145f64e7[m
+Author: thomas <thomastomcio@gmail.com>
+Date:   Sat Jan 11 11:07:59 2020 +0100
+
+    first commit
+
+A	README.md
