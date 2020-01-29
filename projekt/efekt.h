@@ -5,20 +5,10 @@ class efekt : public signal
 {
 	protected:
 		double amplitude;
-		double frame_time_period;
-		int frame_data_period;
-		vector<klatka> ramki;
-
 	public:
-		efekt( WavObject& wf, double ftp, double a ); 
-		efekt( signal& sig, double ftp, double a );
-		// efekt(klatka& frame, wav_header* h) : signal(frame, h), freq 
-		
-		//virtual vector<short int>
-		//virtual signal add_frame( klatka& ramka, signal& sig) = 0; 
-			 
+		efekt(WavObject& wf, double a) : signal(wf), amplitude(a) {}
+//		efekt( signal& sig, double a );
 };
-
 
 class delay : public efekt
 {
@@ -26,18 +16,16 @@ class delay : public efekt
 		double time_delay;
 		int index_delay;
 	public:
-		delay( WavObject& wav_file, double td, double ftp, double a );
-		delay( signal& sig, double td, double ftp, double a );
-	//	signal add_frame( klatka& ramka, signal& sig );
-		
+		delay( WavObject& wav_file, double td, double a );
+//		delay( signal& sig, double td, double a );
 };
 
 class echo : public delay
 {
 	private:
-	int krotnosc;
+		int krotnosc;
 	public:
-		echo( WavObject& wav_file, int k, double td, double ftp, double a );
+		echo( WavObject& wav_file, int k, double td, double a );
 		
 };
 
@@ -47,7 +35,7 @@ class flanger : public efekt // trzeba poprawic
 //		double time_delay;
 //		int index_delay; // do przemyslenia
 	public:
-		flanger( WavObject& wav_file, double ftp, double a);
+		flanger( WavObject& wav_file, double a);
 		
 };
 
@@ -57,6 +45,6 @@ class distortion: public efekt // trzeba poprawic
 		double distortion_lvl;
 //		int index_delay; // do przemyslenia
 	public:
-		distortion( WavObject& wav_file, double dis_lvl, double ftp, double a);
+		distortion( WavObject& wav_file, double dis_lvl, double a);
 		
 };

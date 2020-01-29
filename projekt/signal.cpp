@@ -1,22 +1,14 @@
 // signal.cpp
 #include"signal.h"
 
-klatka::klatka ( const klatka& kopiowany )
-{
-	data_period = kopiowany.data_period;
-	beg_id = data_period * counter;
-	end_id = data_period * (counter + 1)-1;
-	counter++;
-}
-
-int klatka::counter = 0;
-
 signal::signal( WavObject& wav_file) 
 { 
 	header = wav_file.get_header();
 	samples_count = wav_file.get_samples_count();
 	short int* data_pointer = wav_file.get_data();
+	cout<<"data_pointer_func: "<<data_pointer<<endl;
 	data = vector<short int> (data_pointer, data_pointer + samples_count); 
+	cout<<"vector_pointer: "<<data.data()<<endl;
 
 }
 
@@ -39,7 +31,6 @@ signal& signal::operator+= ( const signal& adder )
 	{
 		data[i] =  adder.data[i] + data[i];
 	}
-		cout<<"tu jestem"<<endl;
 	return *this;
 }
 

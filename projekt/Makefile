@@ -1,4 +1,4 @@
-all: seq.exe
+all: clean seq.exe 
 
 seq.exe: main.o wav.o efekt.o signal.o 
 	g++ -o seq.exe main.o wav.o efekt.o signal.o 
@@ -15,6 +15,6 @@ signal.o: signal.cpp
 efekt.o: efekt.cpp 
 	g++ -o efekt.o -c efekt.cpp 
 
-
+.PHONY: clean
 clean:
 	rm main.o wav.o efekt.o signal.o seq.exe 

@@ -6,46 +6,43 @@ using namespace std;
 
 main( int argc, char* argv[])
 {
-	WavReader odczyt("laliczek.wav");
+	WavReader odczyt("example.wav");
 	if ( odczyt.read_data() )
 	{	
+		cout<<"data_pointer_main: "<<odczyt.get_data()<<endl;
 		efekt* eff = nullptr;
 	
 		string mode (argv[1]);
-		delay d(odczyt, stod(argv[2]), stod(argv[3]), stod(argv[4]));
 
 		if ( mode == "flanger")
 		{
-			flanger f( odczyt, stod(argv[2]), stod(argv[3]));
+			flanger f( odczyt, stod(argv[2]) );
 			eff = &f; 
 		}
 		else if ( mode == "echo")
 		{
-			echo e(odczyt, stod(argv[2]), stod(argv[3]), stod(argv[4]), stod(argv[5]));
+			echo e(odczyt, stod(argv[2]), stod(argv[3]), stod(argv[4]));
 			eff = &e; 
 		}
 		else if ( mode == "delay")
 		{
-//			delay d(odczyt, stod(argv[2]), stod(argv[3]), stod(argv[4]));
+			delay d(odczyt, stod(argv[2]), stod(argv[3]));
 			eff = &d;
 		} 
 		else if ( mode == "distortion") 
 		{
-			distortion di(odczyt, stod(argv[2]), stod(argv[3], stod(argc[4]);
+			distortion di(odczyt, stod(argv[2]), stod(argv[3]));
 			eff = &di;
 		}
 		else exit(-1);
 
 		WavWriter zapis(mode + ".wav");
-		
-		short int *data = odczyt.get_data();
+
 		int samples_count = odczyt.get_samples_count();
+		cout<<samples_count<<endl;
 		wav_header* header = odczyt.get_header();
 
-		cout<<eff<<endl;
-		//flanger gnom(odczyt, atof(argv[1]), atof(argv[2]));
-		cout<<"teraz tu"<<endl;
-		if ( zapis.write_data(d.data.data(), header, samples_count) )
+		if ( zapis.write_data(eff->data.data(), header, samples_count) )
 		{
 		cout<<"ok"<<endl;
 		}	

@@ -7,18 +7,6 @@ using namespace std;
 
 #define sgn(x) (signbit(x) ? -1 : 1)
 
-class klatka
-{
-	private:
-		static int counter;
-		int data_period;
-	public:	
-		int beg_id;
-		int end_id;
-		klatka(int d_p) : data_period(d_p){}	
-		klatka( const klatka& );
-};
-
 class signal
 {
 	public:
@@ -29,6 +17,8 @@ class signal
 
 		wav_header* header;	
 		int samples_count;
+		//short int* data_pointer;
+		short int* vector_pointer;
 		std::vector<short int> data;
 
 

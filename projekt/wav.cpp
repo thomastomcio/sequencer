@@ -1,5 +1,7 @@
 // wav.cpp
 #include"wav.h"
+#include<iostream>
+using namespace std;
 
 
 WavObject::WavObject( string f, char mode ) : data(nullptr), header(new wav_header)
@@ -50,24 +52,24 @@ bool WavReader::read_data()
    	}
     //Number of samples
     int sample_size = header->bitsPerSample / 8;
+
     samples_count = chunk.size * 8 / header->bitsPerSample;
 
     data= new short int[samples_count];
     memset(data, 0, sizeof(short int) * samples_count);
 
     //Reading data
-    for(int i = 0; i < samples_count; i++)
-    {
-        fread(&data[i], sample_size, 1, file);
-    }
-
+    //for(int i = 0; i < samples_count; i++)
+    //{
+	cout<<"tutaj"<<endl;
+        fread(data, sample_size, samples_count, file);
+    //}
 	return true;
 	
 }
 
 bool WavWriter::write_data(short int* d, wav_header* h, int sc)
 {
-	
 	header = h;
 	data = d;
 	fwrite(header, sizeof(wav_header), 1, file);
@@ -80,14 +82,16 @@ bool WavWriter::write_data(short int* d, wav_header* h, int sc)
 	data_chunk.size = samples_count * sample_size;
 
 	fwrite(&data_chunk, sizeof(data_chunk), 1, file);
-	
+	cout<<samples_count<<endl;
+	cout<<sample_size<<endl;	
 	//Writing data
 	for(int i = 0; i < samples_count; i++)
 	{
+		cout<<data[i]<<" "<<i<<endl;
 		fwrite(&data[i], sample_size, 1, file);
 	}
 
-
 return true;
 }
+
 
