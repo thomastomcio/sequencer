@@ -46,13 +46,10 @@ class WavObject
 	wav_header* get_header();
 	int get_samples_count();	
 	
-	~WavObject();		
 };
 
 class WavReader : public WavObject
 {
-	private:
-	
 	public:
 	WavReader(string f) : WavObject(f, 'r') {}
 	bool read_data();	
@@ -60,8 +57,6 @@ class WavReader : public WavObject
 
 class WavWriter : public WavObject
 {
-	private:
-
 	public:
 	WavWriter(string f) : WavObject(f, 'w') {}
 	bool write_data(short int* data, wav_header* h, int sc);

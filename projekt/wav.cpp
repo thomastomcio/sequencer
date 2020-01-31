@@ -29,13 +29,6 @@ int WavObject::get_samples_count()
 	return samples_count;
 }	
 
-WavObject::~WavObject()
-{
-	fclose(file);
-	delete[] data;	
-	delete header;
-}
-
 bool WavReader::read_data()
 {
 	// czytaj header
@@ -61,9 +54,9 @@ bool WavReader::read_data()
     //Reading data
     //for(int i = 0; i < samples_count; i++)
     //{
-	cout<<"tutaj"<<endl;
         fread(data, sample_size, samples_count, file);
     //}
+	fclose(file);
 	return true;
 	
 }
@@ -82,15 +75,16 @@ bool WavWriter::write_data(short int* d, wav_header* h, int sc)
 	data_chunk.size = samples_count * sample_size;
 
 	fwrite(&data_chunk, sizeof(data_chunk), 1, file);
-	cout<<samples_count<<endl;
-	cout<<sample_size<<endl;	
+	cout<<">>>> Data writing <<<<"<<endl;
+	cout<<"Samples count:"<<samples_count<<endl;
+	cout<<"Sample size: "<<sample_size<<endl;	
 	//Writing data
 	for(int i = 0; i < samples_count; i++)
 	{
-		cout<<data[i]<<" "<<i<<endl;
+	//	cout<<data[i]<<" "<<i<<endl;
 		fwrite(&data[i], sample_size, 1, file);
 	}
-
+fclose(file);
 return true;
 }
 

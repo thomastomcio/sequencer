@@ -1,4 +1,6 @@
-all: clean seq.exe 
+bin = seq.exe
+
+all: clean $(bin)
 
 seq.exe: main.o wav.o efekt.o signal.o 
 	g++ -o seq.exe main.o wav.o efekt.o signal.o 
@@ -17,4 +19,4 @@ efekt.o: efekt.cpp
 
 .PHONY: clean
 clean:
-	rm main.o wav.o efekt.o signal.o seq.exe 
+	rm -f $(bin) *.o  

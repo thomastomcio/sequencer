@@ -1,16 +1,13 @@
 // efekt.cpp
 #include"efekt.h"
 
-
 delay::delay( WavObject& wav_file, double td, double a ) : time_delay(td), efekt(wav_file, a) 
 {
 	index_delay = time_delay * header->sampleRate*2; 
 	signal delay_calc( samples_count, 0, header); 
 
-	cout<<"id_delay: "<<index_delay<<endl;
-	cout<<"sample_count: "<<samples_count<<endl;
+	cout<<"index_delay: "<<index_delay<<endl;
 
-	int to_add;
 	for(int k = 0 ; k+index_delay < samples_count; k++)
 	{
 /*		
@@ -19,54 +16,69 @@ delay::delay( WavObject& wav_file, double td, double a ) : time_delay(td), efekt
 		else
 		{ to_add = amplitude * data[k];}
 */
-		delay_calc[k+index_delay] = data[k];
+		delay_calc[k+index_delay] = amplitude * data[k];
 	}
 	
 	data = delay_calc.data;
 }
 
-echo::echo( WavObject& wav_file, int k, double td, double a ) : krotnosc(k), delay(wav_file, td, a) 
+echo::echo( WavObject& wav_file, int k, double td, double a ) : krotnosc(k), time_delay(td), efekt(wav_file, a) 
 {
 	signal &ref = *this;
-
-	for(int i = 2 ; i <= krotnosc; i++)
+	double new_time_delay = time_delay/k;
+	double new_amplitude = amplitude /2 ;  // ze skali decybelowej
+	for(int i = 1 ; i < krotnosc+1; i++)
 	{
-		ref += delay(wav_file, time_delay/k, amplitude/k);
+		cout<<"new_amplitude: "<<new_amplitude<<endl;
+		ref += delay(wav_file, time_delay*i, new_amplitude);
+		new_amplitude = new_amplitude/2 ;
 	}
-	(signal)*this = ref;
+	data = ref.data;
 }
 
-flanger::flanger( WavObject& wav_file, double a ) : efekt(wav_file, a) 
+flanger::flanger( WavObject& wav_file, double tvp, double a ) : time_var_period(tvp), efekt(wav_file, a) 
 {
-// jednej klatce ma sie zmiescic jeden okres sinusoidy wyznaczajacej przesuniecie( opznienie ) zgodnie z td
+	signal flanger_calc( samples_count, 0, header); 
+	int data_var_delay = time_var_period * header->sampleRate*2; 
+	int index_delay = 0;
+	double current = 0;
 
-	signal frame_window( samples_count, 0, header);
-
-	double previous = 0;
-	int intermediate = 0;
-	int step_unit = 2;
-	for( int p = 0; p <= step_unit/*nie*/; p++)
+	for( int i = 0; i <= samples_count; i++)
 	{
-		double current = sin(p*step_unit);
-		if( current > previous)
+		current = sin(2*M_PI*i/ data_var_delay);
+		index_delay = data_var_delay * current;	
+
+		if( 0 < index_delay + i && index_delay + i <samples_count)
 		{
-			intermediate++;
+			flanger_calc[index_delay + i] = amplitude * data [i] + data[index_delay + i];
 		}
-		else if ( current < previous )
-		{
-			intermediate--;
-		}
+		else continue;
+
 		//frame_window[ frame_beg + intermediate ] = amplitude * data[ frame_beg + p];	
-		previous = current;
 	}
-	
-		
-	(signal)*this += frame_window;
+
+	data = flanger_calc.data;
 }
 
-distortion::distortion( WavObject& wav_file, double dis_lvl, double a ) : distortion_lvl(dis_lvl), efekt(wav_file, a) 
+distortion::distortion( WavObject& wav_file, short int dis_lvl, double range,  double a ) : distortion_lvl(dis_lvl),distortion_range(range), efekt(wav_file, a) 
 {
+	signal distortion_count( samples_count, 0, header); 
+	short int sum = 0;
+	short int mean = 0;
+	for( int i = 0; (i+1) * distortion_range < samples_count; i++)
+	{
+		for( int j = i * distortion_range; j < (i+1)*distortion_range; j++)
+		{
+		     sum += data[j];
+		}
+		mean = sum / distortion_range;
 
+		for( int k = i * distortion_range; k < (i+1)*distortion_range; k++)
+		{
+        	    distortion_count[k] = amplitude * mean + distortion_lvl;
+		}
+	}
+	data = distortion_count.data;
 }
 /*
 signal delay::add_frame( klatka& ramka, signal& sig )
